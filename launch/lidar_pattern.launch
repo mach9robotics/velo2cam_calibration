@@ -48,6 +48,8 @@
       passthrough_radius_min: 1.0
       passthrough_radius_max: 6.0
     </rosparam>
+    <param name="delta_width_circles" value="0.435" />
+    <param name="delta_height_circles" value="0.348" />
   </node>
 
 </launch>
