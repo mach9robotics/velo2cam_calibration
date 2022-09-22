@@ -24,6 +24,8 @@
   the ArUco markers
 */
 
+#include <image_transport/image_transport.h>
+#include <image_transport/subscriber_filter.h>
 #include <cv_bridge/cv_bridge.h>
 #include <dynamic_reconfigure/server.h>
 #include <image_geometry/pinhole_camera_model.h>
@@ -35,6 +37,7 @@
 #include <ros/ros.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/Image.h>
+#include <sensor_msgs/CompressedImage.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <std_msgs/Empty.h>
 #include <velo2cam_calibration/ClusterCentroids.h>
@@ -554,7 +557,8 @@ int main(int argc, char **argv) {
   nh_.param<string>("cinfo_topic", cinfo_topic,
                     "/stereo_camera/left/camera_info");
 
-  message_filters::Subscriber<sensor_msgs::Image> image_sub(nh_, image_topic,
+  image_transport::ImageTransport image_it(nh_);
+  image_transport::SubscriberFilter image_sub(image_it, image_topic,
                                                             1);
   message_filters::Subscriber<sensor_msgs::CameraInfo> cinfo_sub(
       nh_, cinfo_topic, 1);
